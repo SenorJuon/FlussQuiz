@@ -1,0 +1,69 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 348450484,
+        "name": "Yangtze",
+        "tags": {
+          "name": "Yangtze River",
+          "waterway": "river"
+        }
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            112.5657202,
+            29.0488305
+          ],
+          [
+            112.5659079,
+            29.0491916
+          ],
+          [
+            112.5659079,
+            29.0494636
+          ],
+          [
+            112.5659186,
+            29.04982
+          ],
+          [
+            112.5660259,
+            29.0500638
+          ],
+          [
+            112.5660957,
+            29.0502373
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 348450588,
+        "name": "Yangtze",
+        "tags": {
+          "name": "Yangtze River",
+          "waterway": "river"
+        }
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            112.543667,
+            29.0354642
+          ],
+          [
+            112.5442142,
+            29.0358488
+          ]
+        ]
+      }
+    }
+  ]
+}
