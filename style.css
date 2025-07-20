@@ -121,6 +121,10 @@
         color: #2c3e50;
         letter-spacing: 1px;
     }
-    label {
+    #label {
         color: rgb(190, 19, 19);
     }
+    /*#checker {
+        display:flex;
+        overflow:hidden;
+    }*/

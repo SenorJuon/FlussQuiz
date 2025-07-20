@@ -16,7 +16,11 @@
 <body>
     <div id="container">
         <div id="sidebar">
-            <h1>Die 200 längsten Flüsse Deutschlands</h1>
+            <h1>Die 200 längsten Flüsse Deutschlands/der Welt</h1>
+            <div id = "checker">
+                <input type="checkbox" id="deutschland" onclick="checkboxClicked()" name="dtbtn" value="deutschland" unchecked>
+                <label for="deutschland">Flüsse der Welt?</label><br>
+            </div>
             <input type = "text" id="rateFeld" placeholder="Fluss eingeben" oninput="sucheFluss()" disabled>
             <button id = "startAufgebeButton" class=""  onclick="startAufgeben()">Starten</button>
             <label id ="label"></label>

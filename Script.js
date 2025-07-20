@@ -1,10 +1,13 @@
-var bounds = L.latLngBounds(
+var checkBox = document.getElementById("deutschland");
+let alleLayer = [];
+
+var deutschlandBounds = L.latLngBounds(
   [47.0, 5.5], // Südwest
   [55.1, 15.1] // Nordost
 );
 
 var map = L.map("map", {
-  maxBounds: bounds,
+  maxBounds: deutschlandBounds,
   maxBoundsViscosity: 1.0,
   minZoom: 6.4,
   maxZoom: 18,
@@ -18,29 +21,12 @@ L.tileLayer(
   }
 ).addTo(map);
 
-/*fetch('donau.geojson')
-    .then(response => response.json())
-    .then(data => {
-      const donauLayer = L.geoJSON(data, {
-        style: {
-          color: feature.properties.name === "Donau" ? "blue" : "gray",
-          weight: 3
-        }
-      }).addTo(map);
-
-      // automatisch an Donau zoomen
-      map.fitBounds(donauLayer.getBounds());
-    })
-    .catch(err => {
-      console.error('Fehler beim Laden der GeoJSON-Datei:', err);
-    });*/
-
 // Lade GeoJSON-Daten beim Start
-fetch("alle_fluesse.geojson")
+/*fetch("alle_fluesse_deutschland.geojson")
   .then((res) => res.json())
   .then((data) => {
     alleFluesseGeoJSON = data;
-  });
+});*/
 
 var errateneFluesse = [];
 let spielLaeuft = false;
@@ -82,6 +68,7 @@ function sucheFluss() {
         weight: 4,
       },
     }).addTo(map);
+    alleLayer.push(flussLayer);
 
     map.fitBounds(flussLayer.getBounds());
     errateneFluesse.push(eingabe);
@@ -91,16 +78,6 @@ function sucheFluss() {
     neuerEintrag.textContent = capitalize(eingabe);
     liste.appendChild(neuerEintrag);
     document.getElementById("rateFeld").value = "";
-
-    /*for (let i = 0; i<= errateneFluesse.length; i++){
-      let alteFluss = errateneFluesse[i]
-      errateneLayer = L.geoJSON(alteFluss, {
-        style: {
-          color: "green",
-          weight: 4,
-        },
-      }).addTo(map);
-    }*/
   }
 }
 
@@ -115,15 +92,7 @@ function startAufgeben() {
 
   // Wenn Button nicht aktiv ist → aktivieren
   if (!button.classList.contains("active")) {
-    spielLaeuft = true; //initialen Einstellungen
-    input.disabled = false; //also sowas wie Liste leeren und so
-    input.focus();
-    errateneFluesse = [];
-    document.getElementById("erratenListe").innerHTML = "";
-    button.classList.add("active");
-    button.textContent = "Aufgeben";
-
-    if (aufgedecktLayer) {
+    /* if (aufgedecktLayer) {
       map.removeLayer(aufgedecktLayer);
       aufgedecktLayer = null;
     }
@@ -131,13 +100,41 @@ function startAufgeben() {
     if (flussLayer) {
       map.removeLayer(flussLayer);
       flussLayer = null;
-    }
+    }*/
+    alleLayer.forEach(layer => {
+      map.removeLayer(layer);
+    });
+    alleLayer = [];
+    errateneFluesse = [];
+    document.getElementById("erratenListe").innerHTML = "";
+    const geojsonDatei = checkBox.checked
+      ? "alle_fluesse_welt.geojson"
+      : "alle_fluesse_deutschland.geojson";
+
+    fetch(geojsonDatei)
+      .then((res) => res.json())
+      .then((data) => {
+        alleFluesseGeoJSON = data;
+
+        console.log("Spiel gestartet mit:", geojsonDatei);
+      })
+      .catch((err) => {
+        console.error("Fehler beim Laden der GeoJSON:", err);
+      });
+    spielLaeuft = true; //initialen Einstellungen
+    input.disabled = false; //also sowas wie Liste leeren und so
+    input.focus();
+    checkBox.disabled = true;
+    button.classList.add("active");
+    button.textContent = "Aufgeben";
+
   } else {
     // Wieder zurücksetzen
     spielLaeuft = false;
     button.classList.remove("active");
     button.textContent = "Starten";
     input.disabled = true;
+    checkBox.disabled = false;
 
     var name;
     const nochNichtErraten = alleFluesseGeoJSON.features.filter((f) => {
@@ -150,9 +147,10 @@ function startAufgeben() {
       style: {
         color: "red",
         weight: 2,
-       // dashArray: "5,5",
+        // dashArray: "5,5",
       },
     }).addTo(map);
+    alleLayer.push(aufgedecktLayer);
 
     /*if(!errateneFluesse.includes(name)){
       const neuerEintrag = document.createElement("li");
@@ -185,3 +183,20 @@ function startAufgeben() {
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "");
 }*/
+
+function checkboxClicked() {
+  if (checkBox.checked) {
+    // dann soll die Weltangezeigt werden, sonst nur deutschland mit den deutschland daten
+    map.setView([0, 0], 1);
+    map.setMaxBounds(null); // keine Begrenzung
+    map.options.minZoom = 2;
+    map.setZoom(2);
+  } else {
+    // Deutschland zurücksetzen
+    const deutschlandBounds = L.latLngBounds([47.0, 5.5], [55.1, 15.1]);
+    map.setMaxBounds(deutschlandBounds);
+    map.setView([51.1657, 10.4515], 6.4);
+    map.options.minZoom = 6.4;
+    map.setZoom(6.4);
+  }
+}
