@@ -70,7 +70,7 @@ function sucheFluss() {
     }).addTo(map);
     alleLayer.push(flussLayer);
 
-    map.fitBounds(flussLayer.getBounds());
+    //map.fitBounds(flussLayer.getBounds());
     errateneFluesse.push(eingabe);
     console.log("Richtig geraten:", eingabe);
     const liste = document.getElementById("erratenListe");
