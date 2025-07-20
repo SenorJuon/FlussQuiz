@@ -1,0 +1,87 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 166478968,
+        "name": "Lausitzer Neiße",
+        "tags": {
+          "alt_name": "Neiße",
+          "boat": "yes",
+          "motorboat": "no",
+          "name": "Lausitzer Neiße",
+          "name:cs": "Lužická Nisa",
+          "name:de": "Lausitzer Neiße",
+          "name:pl": "Nysa Łużycka",
+          "waterway": "river"
+        }
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            14.6704385,
+            51.7249879
+          ],
+          [
+            14.6697134,
+            51.7250182
+          ],
+          [
+            14.6691212,
+            51.7251361
+          ],
+          [
+            14.6672766,
+            51.7255875
+          ],
+          [
+            14.6668612,
+            51.7257721
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1125859591,
+        "name": "Lausitzer Neiße",
+        "tags": {
+          "name": "Lausitzer Neiße",
+          "name:cs": "Lužická Nisa",
+          "name:de": "Lausitzer Neiße",
+          "name:nl": "Neisse",
+          "name:pl": "Nysa Łużycka",
+          "waterway": "river"
+        }
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            14.6653115,
+            51.730226
+          ],
+          [
+            14.6654172,
+            51.730591
+          ],
+          [
+            14.6654119,
+            51.7308336
+          ],
+          [
+            14.6652644,
+            51.7310479
+          ],
+          [
+            14.6650203,
+            51.7312954
+          ]
+        ]
+      }
+    }
+  ]
+}

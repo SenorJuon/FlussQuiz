@@ -150,7 +150,7 @@ function startAufgeben() {
       style: {
         color: "red",
         weight: 2,
-        dashArray: "5,5",
+       // dashArray: "5,5",
       },
     }).addTo(map);
 
