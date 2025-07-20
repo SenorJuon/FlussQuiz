@@ -1,7 +1,119 @@
-#map{
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-}
+ body {
+       margin: 0;
+       padding: 0;
+       height: 100%;
+    }
+
+    #controls {
+      margin: 20px;
+    }
+
+    #map {
+      /*position: fixed;
+      bottom: 0;
+      height: 40vh;
+      z-index: 0;
+      width: 90%;
+      height: 850px;
+      max-width: 800px;
+      border: 2px solid #888;
+      border-radius: 10px;
+      flex-grow: 1;*/
+      flex-grow: 1;
+      height: 100%;
+      z-index: 1;
+
+    }
+    #container {
+        display: flex;
+        height: 100vh;
+    }
+    #sidebar {
+        width: 30%;
+        min-width: 300px;
+        background-color: #f0f0f0;
+        padding: 20px;
+        overflow: visible;
+        box-sizing: border-box;
+        z-index: 10;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;     /* horizontal zentriert */
+    }
+    #sidebar h2 {
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.2rem;
+        font-weight: 600;
+        text-align: center;
+        margin: 20px 0;
+        color: #2c3e50;
+        letter-spacing: 1px;
+    }
+    /* Liste */
+    #erratenListe {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+       /* max-height: 400px;       /* scrollbar wenn zu lang */
+        overflow-y: auto;
+        padding-right: 15px;
+        box-sizing: content-box;
+        scrollbar-gutter: stable;
+        scrollbar-width: thin;       /* macht Scrollbar schmaler */
+        scrollbar-color: #abbbcd transparent; /* Farbe des Scrollbalkens und Hintergrund*/
+    }
+
+    /* Listeneinträge */
+    #erratenListe li {
+        background: lightgrey;
+        margin: 0.3rem 0;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        color: rgb(37, 70, 1);
+        font-weight: 600;
+        cursor: default;
+        transition: background-color 0.3s ease;
+
+    }
+
+    /* Hover-Effekt */
+    #erratenListe li:hover {
+        background: #c1dbff9d;
+    }
+
+    /* Scrollbar für Webkit-Browser */
+    #erratenListe::-webkit-scrollbar {
+        width: 3px;
+    }
+
+    #erratenListe::-webkit-scrollbar-thumb {
+        background-color: lightgray;
+        border-radius: 4px;
+    }
+
+    #sidebar input, #sidebar button {
+        display: block;
+        margin-top: 10px;
+        width: 80%;
+        padding: 10px;
+        font-size: 16px;
+    }
+    #startAufgebeButton.active {
+        background-color: rgba(161, 9, 9, 0.871);
+        color: white;
+        border: none;
+    }
+
+    h1 {
+        font-family: 'Poppins', sans-serif;
+        font-size: 2.5rem;
+        font-weight: 600;
+        text-align: center;
+        margin: 20px 0;
+        color: #2c3e50;
+        letter-spacing: 1px;
+    }
+    label {
+        color: rgb(190, 19, 19);
+    }

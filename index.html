@@ -7,19 +7,24 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <link rel = "stylesheet" type = "text/css" href = "style.css">
+    <!--<style>
+        #map{position:absolute; top: 0; bottom: 0; left: 0; right: 0;}
+    </style>-->
 
     <title>Fluss Quiz</title>
 </head>
 <body>
-    <!--<h1>Die 200 längsten Flüsse Deutschlands</h1>
-    <input type = "text" id="rateFeld" placeholder="Fluss eingeben">-->
-    <div id = "map"></div>
-    <script>
-       var map = L.map('map').setView([0,0],1);
-
-       L.titleLayer('https://api.maptiler.com/maps/basic-v2/{z}/{x}/{y}.png?key=34xAAXrLXzTo34pOtGai', {
-            attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
-       }).addTo(map);
-    </script>
+    <div id="container">
+        <div id="sidebar">
+            <h1>Die 200 längsten Flüsse Deutschlands</h1>
+            <input type = "text" id="rateFeld" placeholder="Fluss eingeben" oninput="sucheFluss()" disabled>
+            <button id = "startAufgebeButton" class=""  onclick="startAufgeben()">Starten</button>
+            <label id ="label"></label>
+            <h2>Erratene Flüsse</h2>
+            <ul id="erratenListe"></ul>
+        </div>
+        <div id = "map"></div>   
+    </div>
+    <script src = "Script.js"></script>
 </body>
 </html>
