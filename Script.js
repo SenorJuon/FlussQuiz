@@ -36,7 +36,7 @@ L.tileLayer(
     });*/
 
 // Lade GeoJSON-Daten beim Start
-fetch("donau.geojson")
+fetch("alle_fluesse.geojson")
   .then((res) => res.json())
   .then((data) => {
     alleFluesseGeoJSON = data;
@@ -47,6 +47,7 @@ let spielLaeuft = false;
 let alleFluesseGeoJSON;
 let flussLayer;
 let aufgedecktLayer;
+//let errateneLayer;
 
 function sucheFluss() {
   if (!spielLaeuft || !alleFluesseGeoJSON) return;
@@ -61,10 +62,17 @@ function sucheFluss() {
     label.innerText = "Fluss bereits erraten!";
     return;
   }
+  /*if (flussLayer) {                   //später hinzufügen. Der Fluss der grad erraten wurde gelb, die anderen schon erratenen Grün
+    map.removeLayer(flussLayer);
+    flussLayer = null;
+  }*/
 
   // Suche nach passendem Namen (exakter Match)
   const gefunden = alleFluesseGeoJSON.features.filter(
-    (f) => f.properties.name.toLowerCase() === eingabe
+    (f) =>
+      f.properties &&
+      f.properties.name &&
+      f.properties.name.toLowerCase() === eingabe
   );
 
   if (gefunden.length > 0) {
@@ -76,13 +84,23 @@ function sucheFluss() {
     }).addTo(map);
 
     map.fitBounds(flussLayer.getBounds());
-    // aufgedecktLayer = flussLayer;
     errateneFluesse.push(eingabe);
     console.log("Richtig geraten:", eingabe);
     const liste = document.getElementById("erratenListe");
     const neuerEintrag = document.createElement("li");
     neuerEintrag.textContent = capitalize(eingabe);
     liste.appendChild(neuerEintrag);
+    document.getElementById("rateFeld").value = "";
+
+    /*for (let i = 0; i<= errateneFluesse.length; i++){
+      let alteFluss = errateneFluesse[i]
+      errateneLayer = L.geoJSON(alteFluss, {
+        style: {
+          color: "green",
+          weight: 4,
+        },
+      }).addTo(map);
+    }*/
   }
 }
 
@@ -100,7 +118,7 @@ function startAufgeben() {
     spielLaeuft = true; //initialen Einstellungen
     input.disabled = false; //also sowas wie Liste leeren und so
     input.focus();
-    //  errateneFluesse = [];
+    errateneFluesse = [];
     document.getElementById("erratenListe").innerHTML = "";
     button.classList.add("active");
     button.textContent = "Aufgeben";
@@ -121,9 +139,11 @@ function startAufgeben() {
     button.textContent = "Starten";
     input.disabled = true;
 
+    var name;
     const nochNichtErraten = alleFluesseGeoJSON.features.filter((f) => {
-      const name = normalizeName(f.properties.name);
-      return !errateneFluesse.includes(name);
+      name =
+        f.properties && f.properties.name && f.properties.name.toLowerCase();
+      return name && !errateneFluesse.includes(name);
     });
 
     aufgedecktLayer = L.geoJSON(nochNichtErraten, {
@@ -134,12 +154,34 @@ function startAufgeben() {
       },
     }).addTo(map);
 
+    /*if(!errateneFluesse.includes(name)){
+      const neuerEintrag = document.createElement("li");
+      neuerEintrag.classList.add("nichtErratenListe");
+      neuerEintrag.textContent = capitalize(name);
+      liste.appendChild(neuerEintrag);
+      }*/
+
+    const liste = document.getElementById("erratenListe");
+    const bereitsHinzugefuegt = new Set();
+
+    nochNichtErraten.forEach((f) => {
+      const name = f.properties?.name;
+      if (name && !bereitsHinzugefuegt.has(name)) {
+        bereitsHinzugefuegt.add(name);
+
+        const neuerEintrag = document.createElement("li");
+        neuerEintrag.classList.add("nichtErratenListe");
+        neuerEintrag.textContent = capitalize(name);
+        liste.appendChild(neuerEintrag);
+      }
+    });
+
     //map.fitBounds(aufgedecktLayer.getBounds());
   }
 }
-function normalizeName(name) {
+/*function normalizeName(name) {
   return name
-    .toLowerCase()
+  //.toLowerCase()
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "");
-}
+}*/
