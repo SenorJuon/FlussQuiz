@@ -9,7 +9,7 @@ const flussNamen = fs.readFileSync("fluesse.txt", "utf-8")
   .filter(Boolean);
 
 // Bounding Box für Deutschland (ungefähr)
-const bbox = "(47.0,5.5,55.1,15.1)";
+//const bbox = "(47.0,5.5,55.1,15.1)";
 
 // Zielordner für GeoJSON-Dateien
 const zielOrdner = "geojson";
@@ -21,11 +21,12 @@ async function ladeGeoJSON(flussName) {
   const query = `
   [out:json][timeout:30];
   (
-    relation["name"="${flussName}"]["waterway"="river"]${bbox};
-    way["name"="${flussName}"]["waterway"="river"]${bbox};
+    relation["name"~"${flussName}"]["waterway"="river"];
+    way["name"~"${flussName}"]["waterway"="river"];
   );
   out geom;
   `;
+  // für grenze einfach am ende der query: ${bbox};
 
   const url = "https://overpass-api.de/api/interpreter";
 
