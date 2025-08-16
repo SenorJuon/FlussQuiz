@@ -131,11 +131,12 @@
 
   #sidebar {
     width: 100%;   /* Sidebar volle Breite */
-    height: auto;  /* nur so hoch wie nötig */
+    height: 50vh;  /* nur so hoch wie nötig */
   }
 
   #map {
     height: 50vh;  /* z. B. halber Bildschirm für die Karte */
+    flex: none;
   }
     /*#checker {
         display:flex;
