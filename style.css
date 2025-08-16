@@ -125,7 +125,7 @@
         color: rgb(190, 19, 19);
     }
 @media only screen and (max-width: 600px) {
-  .container {
+  #container {
     flex-direction: column; /* untereinander */
   }
 
